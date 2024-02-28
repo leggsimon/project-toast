@@ -8,7 +8,13 @@ function ToastProvider({ children }) {
   const [toasts, setToasts] = React.useState([]);
 
   const addToast = React.useCallback((toast) => {
-    setToasts((currentToasts) => [...currentToasts, toast]);
+    setToasts((currentToasts) => [
+      ...currentToasts,
+      {
+        id: crypto.randomUUID(),
+        ...toast,
+      },
+    ]);
   }, []);
 
   const removeToast = React.useCallback(
