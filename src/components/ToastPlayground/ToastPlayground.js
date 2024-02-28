@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Button from '../Button';
+import Toast from '../Toast';
 
 import styles from './ToastPlayground.module.css';
 
@@ -8,7 +9,7 @@ const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 
 function ToastPlayground() {
   const [toastMessage, setToastMessage] = React.useState('');
-  const [selectedVariant, setSelectedVariant] = React.useState('notice');
+  const [toastVariant, setToastVariant] = React.useState('notice');
 
   return (
     <div className={styles.wrapper}>
@@ -16,6 +17,8 @@ function ToastPlayground() {
         <img alt='Cute toast mascot' src='/toast.png' />
         <h1>Toast Playground</h1>
       </header>
+
+      <Toast variant={toastVariant} message={toastMessage} />
 
       <div className={styles.controlsWrapper}>
         <div className={styles.row}>
@@ -45,8 +48,8 @@ function ToastPlayground() {
                     type='radio'
                     name='variant'
                     value={variant}
-                    checked={selectedVariant === variant}
-                    onChange={() => setSelectedVariant(variant)}
+                    checked={toastVariant === variant}
+                    onChange={() => setToastVariant(variant)}
                   />
                   {variant}
                 </label>
