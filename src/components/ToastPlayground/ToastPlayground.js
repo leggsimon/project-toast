@@ -8,8 +8,14 @@ import styles from './ToastPlayground.module.css';
 const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 
 function ToastPlayground() {
+  const [showToast, setShowToast] = React.useState(false);
   const [toastMessage, setToastMessage] = React.useState('');
   const [toastVariant, setToastVariant] = React.useState('notice');
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    setShowToast(true);
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -18,9 +24,15 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
 
-      <Toast variant={toastVariant} message={toastMessage} />
+      {showToast ? (
+        <Toast
+          variant={toastVariant}
+          message={toastMessage}
+          onDismiss={() => setShowToast(false)}
+        />
+      ) : null}
 
-      <div className={styles.controlsWrapper}>
+      <form className={styles.controlsWrapper} onSubmit={handleSubmit}>
         <div className={styles.row}>
           <label htmlFor='message' className={styles.label} style={{ alignSelf: 'baseline' }}>
             Message
@@ -64,7 +76,7 @@ function ToastPlayground() {
             <Button>Pop Toast!</Button>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
