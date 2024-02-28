@@ -12,7 +12,7 @@ const ICONS_BY_VARIANT = {
   error: AlertOctagon,
 };
 
-function Toast({ variant = 'notice', message, onDismiss }) {
+function Toast({ variant = 'notice', children, onDismiss }) {
   if (!Object.keys(ICONS_BY_VARIANT).includes(variant)) {
     throw new Error(
       `Unknown 'variant' given. Received: '${variant}'. Expected: ${Object.keys(ICONS_BY_VARIANT)}`,
@@ -26,7 +26,7 @@ function Toast({ variant = 'notice', message, onDismiss }) {
       <div className={styles.iconContainer}>
         <Icon size={24} />
       </div>
-      <p className={styles.content}>{message}</p>
+      <p className={styles.content}>{children}</p>
       <button className={styles.closeButton} onClick={onDismiss}>
         <X size={24} />
         <VisuallyHidden>Dismiss message</VisuallyHidden>
