@@ -7,6 +7,9 @@ import styles from './ToastPlayground.module.css';
 const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 
 function ToastPlayground() {
+  const [toastMessage, setToastMessage] = React.useState('');
+  const [selectedVariant, setSelectedVariant] = React.useState('notice');
+
   return (
     <div className={styles.wrapper}>
       <header>
@@ -20,7 +23,14 @@ function ToastPlayground() {
             Message
           </label>
           <div className={styles.inputWrapper}>
-            <textarea id='message' className={styles.messageInput} />
+            <textarea
+              id='message'
+              className={styles.messageInput}
+              value={toastMessage}
+              onChange={(event) => {
+                setToastMessage(event.target.value);
+              }}
+            />
           </div>
         </div>
 
@@ -30,7 +40,14 @@ function ToastPlayground() {
             {VARIANT_OPTIONS.map((variant) => {
               return (
                 <label htmlFor={`variant-${variant}`}>
-                  <input id={`variant-${variant}`} type='radio' name='variant' value={variant} />
+                  <input
+                    id={`variant-${variant}`}
+                    type='radio'
+                    name='variant'
+                    value={variant}
+                    checked={selectedVariant === variant}
+                    onChange={() => setSelectedVariant(variant)}
+                  />
                   {variant}
                 </label>
               );
