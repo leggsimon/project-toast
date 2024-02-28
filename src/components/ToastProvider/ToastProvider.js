@@ -18,6 +18,24 @@ function ToastProvider({ children }) {
     [setToasts],
   );
 
+  const clearAllToasts = React.useCallback(() => {
+    setToasts([]);
+  }, []);
+
+  React.useEffect(() => {
+    function handleEscape(event) {
+      if (event.code === 'Escape') {
+        clearAllToasts();
+      }
+    }
+
+    window.addEventListener('keypress', handleEscape);
+
+    return () => {
+      window.removeEventListener('keypress', handleEscape);
+    };
+  }, [clearAllToasts]);
+
   const value = React.useMemo(
     () => ({ toasts, addToast, removeToast }),
     [toasts, addToast, removeToast],
